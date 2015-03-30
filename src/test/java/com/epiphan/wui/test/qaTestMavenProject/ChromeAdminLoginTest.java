@@ -1,11 +1,10 @@
 package com.epiphan.wui.test.qaTestMavenProject;
 
 import static junit.framework.Assert.assertEquals;
-//import static junit.framework.Assert.assertTrue;
-import static junit.framework.Assert.assertTrue;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.io.FileUtils;
 import org.junit.After;
@@ -15,24 +14,29 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.support.ui.ExpectedCondition;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class WhenSearchingForDrupalUsingGoogleTest {
-	  private String baseUrl;
-	  private WebDriver driver;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+
+public class ChromeAdminLoginTest {
+	  private String baseUrl = System.getProperty("webdriver.base.url");
+	  private String username = "admin";
+      private String password =  ""; // no password by default
+      private WebDriver driver;
+	  
+      
+	  
 	  private ScreenshotHelper screenshotHelper;
 	  
 	  
 	  @Before
 	  public void openBrowser() {
 		  System.setProperty("webdriver.chrome.driver","/Users/Epiphan/Documents/workspace/chromedriver/chromedriver");
-		  baseUrl = System.getProperty("webdriver.base.url");
-	    driver = new ChromeDriver();
-	    driver.get(baseUrl);
-	    screenshotHelper = new ScreenshotHelper();
+		  driver = new ChromeDriver();
+		  //Build URL string for device
+	      String URL = "http://" + username + ":" + password + "@" + baseUrl +"/admin";
+	      driver.get(URL);
+		  screenshotHelper = new ScreenshotHelper();
 	  }
 	  
 	  @After
@@ -42,19 +46,20 @@ public class WhenSearchingForDrupalUsingGoogleTest {
 	  }
 	  
 	  @Test
-	  public void pageTitleAfterSearchShouldBeginWithDrupal() throws IOException {
-	    assertEquals("The page title should equal Google at the start of the test.", "Google", driver.getTitle());
-	    WebElement searchField = driver.findElement(By.name("q"));
-	    searchField.sendKeys("Drupal!");
-	    searchField.submit();
-	    
-	   /* assertTrue("The page title should start with the search string after the search.",
-	      (new WebDriverWait(driver, 10)).until(new ExpectedCondition() {
-	        public Boolean apply(WebDriver d) {
-	          return d.getTitle().toLowerCase().startsWith("drupal!");
-	        }
-	      })
-	    );*/
+	  public void shouldDisplayAdminitratorLogin() throws IOException {
+		// TODO Auto-generated method stub
+			
+	        
+	      //implicit wait for the channel to load
+	        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+	        //find "Administrator"
+	        String text = driver.findElement(By.xpath("/html/body/div/div[1]/span")).getText();
+	        
+	        //Ensure text channel name is present
+	        assertEquals(text, "Administrator");
+	        System.out.println("Logged in as, "+ text + " successfully!\n");
+	        // Close the driver
+	      
 	  }
 	  
 	  private class ScreenshotHelper {
