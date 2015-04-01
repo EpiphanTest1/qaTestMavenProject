@@ -1,7 +1,6 @@
 package com.epiphan.wui.test.qaTestMavenProject;
 
-import static junit.framework.Assert.assertEquals;
-
+import org.junit.Assert;
 import java.io.File;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
