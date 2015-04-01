@@ -44,8 +44,7 @@ public class FireFoxAdminLoginTest {
 	  
 	  @Test
 	  public void shouldDisplayAdminitratorLogin() throws IOException {
-		// TODO Auto-generated method stub
-			
+		
 	        
 	      //implicit wait for the channel to load
 	        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
@@ -53,7 +52,7 @@ public class FireFoxAdminLoginTest {
 	        String text = driver.findElement(By.xpath("/html/body/div/div[1]/span")).getText();
 	        
 	        //Ensure text channel name is present
-	        assertEquals(text, "Administrator");
+	        Assert.assertEquals(text, "Administrator");
 	        System.out.println("Logged in as, "+ text + " successfully!\n");
 	        // Close the driver
 	      
