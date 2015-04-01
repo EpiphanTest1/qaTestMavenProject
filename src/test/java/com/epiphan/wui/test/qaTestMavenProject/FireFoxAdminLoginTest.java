@@ -1,7 +1,6 @@
 package com.epiphan.wui.test.qaTestMavenProject;
 
-import static org.junit.Assert.*;
-import org.junit.Assert;
+import static junit.framework.Assert.assertEquals;
 
 import java.io.File;
 import java.io.IOException;
@@ -15,10 +14,10 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
 
 
-public class ChromeAdminLoginTest {
+public class FireFoxAdminLoginTest {
 	  private String baseUrl = System.getProperty("webdriver.base.url");
 	  private String username = "admin";
       private String password =  ""; // no password by default
@@ -31,8 +30,7 @@ public class ChromeAdminLoginTest {
 	  
 	  @Before
 	  public void openBrowser() {
-		  System.setProperty("webdriver.chrome.driver","/Users/Epiphan/Documents/workspace/chromedriver/chromedriver");
-		  driver = new ChromeDriver();
+		  driver = new FirefoxDriver();
 		  //Build URL string for device
 	      String URL = "http://" + username + ":" + password + "@" + baseUrl +"/admin";
 	      driver.get(URL);
@@ -41,7 +39,7 @@ public class ChromeAdminLoginTest {
 	  
 	  @After
 	  public void saveScreenshotAndCloseBrowser() throws IOException {
-	    screenshotHelper.saveScreenshot("ChromeAdminLogin.png");
+	    screenshotHelper.saveScreenshot("FirefoxAdminLogin.png");
 	    driver.quit();
 	  }
 	  
@@ -56,7 +54,7 @@ public class ChromeAdminLoginTest {
 	        String text = driver.findElement(By.xpath("/html/body/div/div[1]/span")).getText();
 	        
 	        //Ensure text channel name is present
-	        Assert.assertEquals(text,"Administrator");
+	        assertEquals(text, "Administrator");
 	        System.out.println("Logged in as, "+ text + " successfully!\n");
 	        // Close the driver
 	      
